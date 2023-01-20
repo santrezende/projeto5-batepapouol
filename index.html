@@ -37,12 +37,16 @@
         </div>
     </div>
     <footer>
-        <textarea onclick="limpaTexto()" style="resize: none">Escreva aqui...</textarea>
-        <button>
+        <textarea data-test="input-message" onclick="limpaTexto(this)" style="resize: none">Escreva aqui...</textarea>
+        <button data-test="send-message">
             <ion-icon name="paper-plane-outline"></ion-icon>
         </button>
     </footer>
-
+    <div class="tela-inicial escondido">
+        <img src="logo 1.png" />
+        <textarea onclick="limpaTexto(this)" style="resize: none">Digite seu Nome</textarea>
+        <button>Entrar</button>
+    </div>
     <div onclick="volta()" class="segunda-tela escondido">
         <div class="painel">
             <div class="cabecalho">
@@ -79,6 +83,7 @@
     </div>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="scripts.js"></script>
 </body>
 

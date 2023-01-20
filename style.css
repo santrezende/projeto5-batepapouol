@@ -10,7 +10,7 @@ header {
     left: 0;
 }
 
-img {
+header img {
     height: 50px;
     width: auto;
     padding-top: 15px;
@@ -141,10 +141,6 @@ button:focus {
     flex-direction: column;
 }
 
-.escondido {
-    display: none;
-}
-
 .painel {
     background-color: #FFFFFF;
     width: 65vw;
@@ -187,4 +183,60 @@ li span {
 
 li ion-icon {
     font-size: 30px;
+}
+
+.tela-inicial {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tela-inicial img {
+    height: 75px;
+    width: auto;
+}
+
+.tela-inicial textarea {
+    width: 60vw;
+    height: 25px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #AEAEAE;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    margin-top: 100px;
+}
+
+.tela-inicial button {
+    width: 109px;
+    height: 45px;
+    background-color: #E7E7E7;
+    border-radius: 9px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #696969;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.escondido {
+    display: none;
 }
