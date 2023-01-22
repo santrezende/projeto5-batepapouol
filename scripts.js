@@ -51,56 +51,32 @@ function carregaMensagens() {
     let lastMessage;
     function processarResposta(resposta) {
         mensagens = resposta.data;
-        container.innerHTML = "";
         for (let index = 0; index < mensagens.length; index++) {
+            if(index === 0) {
+                container.innerHTML = "";
+            }
 
             function criaMensagemTodos() {
-                let div;
-                
-                if(index === 99) {
-                    div = `<div data-test="message" class="print todos last">
-                    <span class="texto-horario">(${mensagens[index].time})</span> <span class="texto-usuario">${mensagens[index].from}</span> para <span
-                        class="texto-destinatario">${mensagens[index].to}: </span><span>${mensagens[index].text}</span>
-                </div>`;
-                } else {
-                    div = `<div data-test="message" class="print todos">
+                let div = `<div data-test="message" class="print todos">
                 <span class="texto-horario">(${mensagens[index].time})</span> <span class="texto-usuario">${mensagens[index].from}</span> para <span
                     class="texto-destinatario">${mensagens[index].to}: </span><span>${mensagens[index].text}</span>
             </div>`;
-                }
 
                 container.innerHTML = container.innerHTML + div;
             }
             
             function criaAviso() {
-                let div;
-
-                if(index === 99) {
-                    div = `<div data-test="message" class="print aviso last">
-                    <span class="texto-horario">(${mensagens[index].time})</span> <span class="texto-usuario">${mensagens[index].from} </span><span>${mensagens[index].text}</span>
-                </div>`;
-                } else {
-                    div = `<div data-test="message" class="print aviso">
+                let div = `<div data-test="message" class="print aviso">
                 <span class="texto-horario">(${mensagens[index].time})</span> <span class="texto-usuario">${mensagens[index].from} </span><span>${mensagens[index].text}</span>
             </div>`;
-                }
                 container.innerHTML = container.innerHTML + div;
             }
             
             function criaMensagemPrivada() {
-                let div;
-                
-                if(index === 99) {
-                    div = `<div data-test="message" class="print privado last">
-                    <span class="texto-horario">(${mensagens[index].time})</span> <span class="texto-usuario">${mensagens[index].from}</span> reservadamente para
-                    <span class="texto-destinatario">${mensagens[index].to}</span><span>: ${mensagens[index].text}</span>
-                </div>`;
-                } else {
-                    div = `<div data-test="message" class="print privado last">
-                    <span class="texto-horario">(${mensagens[index].time})</span> <span class="texto-usuario">${mensagens[index].from}</span> reservadamente para
-                    <span class="texto-destinatario">${mensagens[index].to}</span><span>: ${mensagens[index].text}</span>
-                </div>`;
-                }
+                let div = `<div data-test="message" class="print privado">
+                <span class="texto-horario">(${mensagens[index].time})</span> <span class="texto-usuario">${mensagens[index].from}</span> reservadamente para
+                <span class="texto-destinatario">${mensagens[index].to}</span><span>: ${mensagens[index].text}</span>
+            </div>`;
 
                 container.innerHTML = container.innerHTML + div;
             }
@@ -112,12 +88,39 @@ function carregaMensagens() {
                 criaMensagemTodos();
             }
             if (mensagens[index].type === "private_message") {
+               if (mensagens[index].from === user.name || mensagens[index].to === user.name) {
                 criaMensagemPrivada();
+               }
             }
+            lastMessage = container.lastChild;
         }
-        lastMessage = document.querySelector(".last");
         lastMessage.scrollIntoView();
     }
+}
+
+function enviaMensagem() {
+    let mensagem = document.querySelector(".mensagem");
+    let mensagemPost = {
+        from: user.name,
+        to: "Todos",
+        text: mensagem.value,
+        type: "message"
+    };
+
+    const requestMessage = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", mensagemPost);
+    requestMessage.then(processarResposta);
+    requestMessage.catch(deuRuim);
+
+    function processarResposta () {
+        carregaMensagens();
+    }
+
+    function deuRuim () {
+        alert('seu usuário não está mais logado na sala, a página será recarregada para realizar novo login');
+        window.location.reload();
+    }
+
+    mensagem.value = "";
 }
 
 function teste() {

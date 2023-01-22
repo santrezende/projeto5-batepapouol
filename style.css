@@ -130,9 +130,14 @@ button:focus {
 }
 
 .segunda-tela {
+    display: flex;
     position: fixed;
-    top: 0px;
-    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.shadow {
+    width: 35vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
     display: flex;
@@ -143,8 +148,7 @@ button:focus {
 
 .painel {
     background-color: #FFFFFF;
-    width: 65vw;
-    margin-left: 35vw;
+    width: 65vw;   
     height: 100vh;
 }
 
@@ -159,8 +163,8 @@ button:focus {
     text-align: center;
     color: #000000;
     margin-top: 20px;
-    padding-left: 45px;
-    padding-right: 45px;
+    padding-left: 35px;
+    padding-right: 35px;
 }
 
 li {
