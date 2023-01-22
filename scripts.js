@@ -13,26 +13,27 @@ function defineUser() {
     user = {
         name: nomeUser.value
     };
-    fazerLogIn();
-}
-
-function fazerLogIn() {
-
+    
     const requestUser = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', user);
 
     function deuRuim() {
-        alert('ja tem um user com esse nome, escolhe outro');
+        alert('ja tem um user com esse nome, escolha outro');
+        defineUser();
     }
 
     function processarResposta() {
-        primeiraTela.classList.add("escondido");
-        alert ('login realizado com sucesso');
-        setInterval(manterConexao, 5000);
-        setInterval(carregaMensagens, 3000);
+        fazerLogIn();
     } 
 
     requestUser.then(processarResposta);
     requestUser.catch(deuRuim);
+}
+
+function fazerLogIn() {
+    primeiraTela.classList.add("escondido");
+        alert ('login realizado com sucesso');
+        setInterval(manterConexao, 5000);
+        setInterval(carregaMensagens, 3000);
 }
 
 function manterConexao () {
