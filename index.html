@@ -17,35 +17,22 @@
 <body>
     <header>
         <img src="logo 1.png" />
-        <ion-icon onclick="teste()" name="people"></ion-icon>
+        <ion-icon data-test="open-participants" onclick="abrirSegundaTela()" name="people"></ion-icon>
     </header>
-    <div class="container-mensagens">
-        <div class="print aviso">
-            <span class="texto-horario">(09:21:45)</span> <span class="texto-usuario">João</span> entra na sala...
-        </div>
-        <div class="print todos">
-            <span class="texto-horario">(09:21:45)</span> <span class="texto-usuario">João</span> para <span
-                class="texto-destinatario">Todos</span><span>: Bom dia</span>
-        </div>
-        <div class="print privado">
-            <span class="texto-horario">(09:21:45)</span> <span class="texto-usuario">João</span> reservadamente para
-            <span class="texto-destinatario">Maria</span><span>: Oi gatinha quer tc? d</span>
-        </div>
-        <div class="print aviso">
-            <span class="texto-horario">(09:21:45)</span> <span class="texto-usuario">João</span><span> entra na
-                sala...</span>
-        </div>
-    </div>
+    <div class="container-mensagens"></div>
     <footer>
-        <textarea class="mensagem" data-test="input-message" onclick="limpaTexto(this)" style="resize: none">Escreva aqui...</textarea>
+    <div class="campos-mensagem">
+        <textarea class="mensagem" data-test="input-message" onclick="limpaTextoMensagem()" style="resize: none">Escreva aqui...</textarea>
+        <p data-test="recipient">Enviando para Todos (publicamente)</p>
+    </div>
         <button onclick="enviaMensagem()" data-test="send-message">
             <ion-icon name="paper-plane-outline"></ion-icon>
         </button>
     </footer>
-    <div class="tela-inicial escondido">
+    <div class="tela-inicial">
         <img src="logo 1.png" />
-        <textarea class="user" onclick="limpaTexto(this)" style="resize: none">Digite seu Nome</textarea>
-        <button>Entrar</button>
+        <textarea data-test="input-name" class="user inicial" onclick="limpaTextoUser()" style="resize: none">Digite seu Nome</textarea>
+        <button data-test="send-name" onclick="defineUser()">Entrar</button>
     </div>
     <div class="segunda-tela escondido">
         <div onclick="volta()" class="shadow"></div>
@@ -58,26 +45,20 @@
                 <ion-icon name="people"></ion-icon>
                 <span>Todos</span>
             </li>
-            <li>
-                <ion-icon name="person-circle"></ion-icon>
-                <span>Joao</span>
-            </li>
-            <li>
-                <ion-icon name="person-circle"></ion-icon>
-                <span>Maria</span>
-            </li>
         </ul>
         <div class="cabecalho">
             Escolha a visibilidade:
         </div>
         <ul class="lista-visibilidade">
-            <li>
+            <li data-test="public" onclick="selecionaPublico(this)">
                 <ion-icon name="lock-open"></ion-icon>
                 <span>Publico</span>
+                <ion-icon data-test="check" id="publico" class="check escondido" name="checkmark-circle"></ion-icon>
             </li>
-            <li>
+            <li data-test="private" onclick="selecionaReservado(this)">
                 <ion-icon name="lock-closed"></ion-icon>
                 <span>Reservadamente</span>
+                <ion-icon data-test="check" id="reservado" class="check escondido" name="checkmark-circle"></ion-icon>
             </li>
         </ul>
     </div>
