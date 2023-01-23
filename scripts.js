@@ -1,7 +1,4 @@
 let nomeUser = document.querySelector(".user");
-let user;
-let container = document.querySelector(".container-mensagens");
-const primeiraTela = document.querySelector(".tela-inicial");
 
 nomeUser.addEventListener("keypress", function(e) {
     if(e.key === "Enter") {
@@ -9,31 +6,44 @@ nomeUser.addEventListener("keypress", function(e) {
     }
 });
 
+let user;
+let primeiraTela = document.querySelector(".tela-inicial");
+let loading = document.querySelector(".loading");
+
 function defineUser() {
+    let botao = document.querySelector(".tela-inicial button");
+
+    function fazerLogIn() {
+        primeiraTela.classList.add("escondido");
+            setInterval(manterConexao, 5000);
+            setInterval(carregaMensagens, 3000);
+    }
+
     user = {
         name: nomeUser.value
     };
     
-    const requestUser = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', user);
+    loading.classList.remove("escondido");
+    botao.classList.add("escondido");
+    nomeUser.classList.add("escondido");
+
+    let requestUser = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', user);
 
     function deuRuim() {
-        alert('ja tem um user com esse nome, escolha outro');
-        defineUser();
+        botao.classList.remove("escondido");
+        nomeUser.classList.remove("escondido");
+        loading.classList.add("escondido");
+        nomeUser.value = "";
+        nomeUser.placeholder = "Nome já em uso";
     }
 
     function processarResposta() {
         fazerLogIn();
+        carregaMensagens();
     } 
 
     requestUser.then(processarResposta);
     requestUser.catch(deuRuim);
-}
-
-function fazerLogIn() {
-    primeiraTela.classList.add("escondido");
-        alert ('login realizado com sucesso');
-        setInterval(manterConexao, 5000);
-        setInterval(carregaMensagens, 3000);
 }
 
 function manterConexao () {
@@ -51,6 +61,8 @@ function manterConexao () {
    requestUser.then(processarResposta);
    requestUser.catch(deuRuim);
 }
+
+let container = document.querySelector(".container-mensagens");
 
 function carregaMensagens() {
     const requestMensagens = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
@@ -106,8 +118,6 @@ function carregaMensagens() {
     }
 }
 
-let type = "message";
-let to = "Todos"
 let mensagem = document.querySelector(".mensagem");
 
 mensagem.addEventListener("keypress", function(e) {
@@ -115,6 +125,9 @@ mensagem.addEventListener("keypress", function(e) {
         enviaMensagem();
     }
 });
+
+let type = "message";
+let to = "Todos"
 
 function enviaMensagem() {
 
@@ -176,8 +189,6 @@ function mostrarParticipantes() {
     }
 }
 
-// <ion-icon class="check" name="checkmark-circle"></ion-icon>
-
 function selecionaDestino(li) {
     apagaCheck();
 
@@ -228,15 +239,22 @@ function volta() {
 }
 
 function limpaTextoUser() {
+    if(nomeUser.value !== "") {
+        nomeUser.value = nomeUser.value;
+     } else {
+        nomeUser.value = "";
+     }
+
     nomeUser.classList.remove("inicial");
-    nomeUser.innerHTML = "";
     nomeUser.classList.add("escreve-user");
 }
 
 function limpaTextoMensagem() {
-    mensagem.classList.remove("mensagem");
-    mensagem.innerHTML = "";
-    mensagem.classList.add("escreve-mensagem");
+    if(mensagem.value !== "") {
+        mensagem.value = mensagem.value;
+     } else {
+        mensagem.value = "";
+     }
 }
 
 let p = document.querySelector("p");
@@ -249,5 +267,5 @@ function alteraDestino() {
     if(type === "private_message") {
         string = "reservadamente";
     }
-    p.innerHTML = `Enviando para ${to + " (" + string + ")"}`
+    p.innerHTML = `Enviando para ${to + " (" + string + ")"}`;
 }

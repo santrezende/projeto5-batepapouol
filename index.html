@@ -22,7 +22,7 @@
     <div class="container-mensagens"></div>
     <footer>
     <div class="campos-mensagem">
-        <textarea class="mensagem" data-test="input-message" onclick="limpaTextoMensagem()" style="resize: none">Escreva aqui...</textarea>
+        <input class="mensagem" placeholder="Escreva aqui..." data-test="input-message" onclick="limpaTextoMensagem()"/>
         <p data-test="recipient">Enviando para Todos (publicamente)</p>
     </div>
         <button onclick="enviaMensagem()" data-test="send-message">
@@ -31,8 +31,9 @@
     </footer>
     <div class="tela-inicial">
         <img src="logo 1.png" />
-        <textarea data-test="input-name" class="user inicial" onclick="limpaTextoUser()" style="resize: none">Digite seu Nome</textarea>
+        <input data-test="input-name" placeholder="Digite seu Nome" class="user inicial" onclick="limpaTextoUser()"/>
         <button data-test="send-name" onclick="defineUser()">Entrar</button>
+        <img class="loading escondido" src="loading.gif" />
     </div>
     <div data-test="overlay" class="segunda-tela escondido">
         <div onclick="volta()" class="shadow"></div>
@@ -53,12 +54,12 @@
             <li data-test="public" onclick="selecionaPublico(this)">
                 <ion-icon name="lock-open"></ion-icon>
                 <span>Publico</span>
-                <ion-icon data-test="check" id="publico" class="check escondido" name="checkmark-circle"></ion-icon>
+                <ion-icon data-test="check escondido" id="publico" class="check escondido" name="checkmark-circle"></ion-icon>
             </li>
             <li data-test="private" onclick="selecionaReservado(this)">
                 <ion-icon name="lock-closed"></ion-icon>
                 <span>Reservadamente</span>
-                <ion-icon data-test="check" id="reservado" class="check escondido" name="checkmark-circle"></ion-icon>
+                <ion-icon data-test="check escondido" id="reservado" class="check escondido" name="checkmark-circle"></ion-icon>
             </li>
         </ul>
     </div>
